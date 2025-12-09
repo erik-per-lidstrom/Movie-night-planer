@@ -1,4 +1,5 @@
 export type Movie = {
+  id: number;
   ageRate: string;
   title: string;
   genre: string;
