@@ -1,6 +1,4 @@
 const HomePage = () => {
-  // Poster-style cards with title + genre.
-
   return (
     <div>
       <h1>Welcome to Movie Night Planner</h1>

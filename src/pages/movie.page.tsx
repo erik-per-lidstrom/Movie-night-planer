@@ -1,11 +1,12 @@
+import type { Movie } from "../types";
 import { movies } from "../data/movies";
 
 const MoviePage = () => {
   return (
     <div>
-      <h1>Movies </h1>
+      <h1>Movies</h1>
 
-      {movies.map((movie) => (
+      {movies.map((movie: Movie) => (
         <div key={movie.id}>
           <h2>{movie.title}</h2>
 
