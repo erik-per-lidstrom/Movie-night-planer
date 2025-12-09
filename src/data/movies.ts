@@ -1,6 +1,6 @@
-import type { Movies } from "../types";
+import type { Movie } from "../types";
 
-export const movies: Movies = [
+export const movies: Movie[] = [
   {
     id: 1,
     ageRate: "PG-13",
