@@ -3,3 +3,7 @@ export type Movie = {
   title: string;
   genre: string;
 };
+
+export type Action =
+  | { type: "ADD_MOVIE"; payload: Movie }
+  | { type: "REMOVE_MOVIE"; payload: string };
