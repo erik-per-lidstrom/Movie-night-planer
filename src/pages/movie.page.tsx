@@ -8,6 +8,9 @@ const MoviePage = () => {
     dispatch: null,
   };
 
+  const removeMovie = (id: string) =>
+    dispatch?.({ type: "REMOVE_MOVIE", payload: id });
+
   return (
     <div>
       <h1>Movies</h1>
@@ -19,9 +22,9 @@ const MoviePage = () => {
 
             <p>Genre: {movie.genre}</p>
             <button
-              onClick={() =>
-                dispatch?.({ type: "REMOVE_MOVIE", payload: movie.id })
-              }
+              onClick={() => {
+                removeMovie(movie.id);
+              }}
             >
               X
             </button>

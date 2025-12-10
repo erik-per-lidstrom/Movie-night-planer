@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { createContext, useReducer } from "react";
-import moveReducer from "./move.reduser";
+import { moveReducer } from "./move.reduser";
 import type { MovieState, MovieContextType } from "../types";
 
 const initialMovies: MovieState = [];
