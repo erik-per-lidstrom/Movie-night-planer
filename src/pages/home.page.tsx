@@ -45,6 +45,8 @@ const HomePage = () => {
         <option value="">PG-18</option>
       </select>
       <h1>Movies</h1>
+      <p>{filteredmovies.length} movies found</p>
+      {filteredmovies.length === 0 && <p>No movies found</p>}
 
       {filteredmovies.map((movie: Movie) => (
         <div key={movie.id}>
