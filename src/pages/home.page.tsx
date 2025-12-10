@@ -1,7 +1,24 @@
 import { useState } from "react";
+import { useRef } from "react";
 import type { Movie } from "../types";
 import { useContext } from "react";
 import MovieContext from "../context/movie.context";
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+const ScrollToTop = () => {
+  const topRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    if (topRef.current) {
+      topRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return <div ref={topRef} onClick={handleScroll}></div>;
+};
 
 const HomePage = () => {
   const { state, dispatch } = useContext(MovieContext) || {
@@ -24,6 +41,7 @@ const HomePage = () => {
 
   return (
     <div>
+      <ScrollToTop />
       <select
         name="genre"
         id="genre"
@@ -62,6 +80,7 @@ const HomePage = () => {
           </button>
         </div>
       ))}
+      <button onClick={scrollToTop}>Back To Top</button>
     </div>
   );
 };
