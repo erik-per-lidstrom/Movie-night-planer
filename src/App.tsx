@@ -4,12 +4,16 @@ import HomePage from "./pages/home.page";
 import AdminPage from "./pages/admin.page";
 import MoviePage from "./pages/movie.page";
 import MovieContext from "./context/movie.context";
-import { movies } from "./data/movies";
-
+import { useReducer } from "react";
+import { movieReducer } from "./context/movie.reducer";
+import { movies as mock } from "./data/movies";
 function App() {
+  const [movies, dispatch] = useReducer(movieReducer, mock);
+  console.log(movies);
+
   return (
     <>
-      <MovieContext.Provider value={{ movie: movies, dispatch: () => null }}>
+      <MovieContext.Provider value={{ state: movies, dispatch }}>
         <Routes>
           <Route element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />

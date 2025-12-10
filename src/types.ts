@@ -12,7 +12,7 @@ export type movieDraft = Omit<Movie, "id">;
 export type MovieState = Movie[];
 
 export type MovieContextType = {
-  movie: MovieState;
+  state: MovieState;
   dispatch: Dispatch<Action>;
 };
 

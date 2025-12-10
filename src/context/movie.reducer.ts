@@ -1,6 +1,6 @@
 import type { Action, Movie, MovieState } from "../types";
 
-export const moveReducer = (state: Movie[], action: Action): MovieState => {
+export const movieReducer = (state: MovieState, action: Action): MovieState => {
   switch (action.type) {
     case "ADD_MOVIE": {
       const newMovie: Movie = {
@@ -13,15 +13,9 @@ export const moveReducer = (state: Movie[], action: Action): MovieState => {
     }
 
     case "REMOVE_MOVIE": {
-      console.log("hi");
-
-      console.log(action.payload);
-
       return state.filter((movie) => movie.id !== action.payload);
     }
     default: {
-      console.log("hi");
-
       return state;
     }
   }
