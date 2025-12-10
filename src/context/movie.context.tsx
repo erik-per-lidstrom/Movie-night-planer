@@ -1,22 +1,17 @@
+import type { ReactNode } from "react";
 import { createContext, useReducer } from "react";
-import moveReducer, { initialState } from "./move.reduser";
-import type { Movie } from "../types";
+import moveReducer from "./move.reduser";
+import type { MovieState, MovieContextType } from "../types";
 
-type MovieContextType = {
-  movies: Movie[];
-  dispatch: React.Dispatch<any>;
-};
+const initialMovies: MovieState = [];
 
-const MovieContext = createContext<MovieContextType>({
-  movies: initialState.movies,
-  dispatch: () => null,
-});
+const MovieContext = createContext<MovieContextType | null>(null);
 
-export const MovieProvider = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = useReducer(moveReducer, initialState);
+export const MovieProvider = ({ children }: { children: ReactNode }) => {
+  const [movie, dispatch] = useReducer(moveReducer, initialMovies);
 
   return (
-    <MovieContext.Provider value={{ movies: state.movies, dispatch }}>
+    <MovieContext.Provider value={{ movie, dispatch }}>
       {children}
     </MovieContext.Provider>
   );

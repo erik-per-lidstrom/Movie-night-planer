@@ -1,5 +1,7 @@
 import { useState } from "react";
 import type { Movie } from "../types";
+import { useContext } from "react";
+import MovieContext from "../context/movie.context";
 import { movies } from "../data/movies";
 
 const MoviePage = () => {
@@ -12,6 +14,11 @@ const MoviePage = () => {
       selectedAgeRate === "" || movie.ageRate === selectedAgeRate;
     return matchinggenre && matchingAgeRate;
   });
+  const { movie, dispatch } = useContext(MovieContext) || {
+    movies: [],
+    dispatch: null,
+  };
+
   return (
     <div>
       <select
@@ -43,6 +50,21 @@ const MoviePage = () => {
           <p>Genre: {movie.genre}</p>
         </div>
       ))}
+      {movie &&
+        movie.map((movie: Movie) => (
+          <div key={movie.id}>
+            <h2>{movie.title}</h2>
+
+            <p>Genre: {movie.genre}</p>
+            <button
+              onClick={() =>
+                dispatch?.({ type: "REMOVE_MOVIE", payload: movie.id })
+              }
+            >
+              X
+            </button>
+          </div>
+        ))}
     </div>
   );
 };
