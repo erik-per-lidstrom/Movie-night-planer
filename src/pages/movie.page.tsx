@@ -1,18 +1,32 @@
 import type { Movie } from "../types";
-import { movies } from "../data/movies";
+import { useContext } from "react";
+import MovieContext from "../context/movie.context";
 
 const MoviePage = () => {
+  const { movie, dispatch } = useContext(MovieContext) || {
+    movies: [],
+    dispatch: null,
+  };
+
   return (
     <div>
       <h1>Movies</h1>
 
-      {movies.map((movie: Movie) => (
-        <div key={movie.id}>
-          <h2>{movie.title}</h2>
+      {movie &&
+        movie.map((movie: Movie) => (
+          <div key={movie.id}>
+            <h2>{movie.title}</h2>
 
-          <p>Genre: {movie.genre}</p>
-        </div>
-      ))}
+            <p>Genre: {movie.genre}</p>
+            <button
+              onClick={() =>
+                dispatch?.({ type: "REMOVE_MOVIE", payload: movie.id })
+              }
+            >
+              X
+            </button>
+          </div>
+        ))}
     </div>
   );
 };

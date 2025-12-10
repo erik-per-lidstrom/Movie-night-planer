@@ -1,8 +1,19 @@
+import type { Dispatch } from "react";
+
 export type Movie = {
-  id: number;
+  id: string;
   ageRate: string;
   title: string;
   genre: string;
+};
+
+export type movieDraft = Omit<Movie, "id">;
+
+export type MovieState = Movie[];
+
+export type MovieContextType = {
+  movie: MovieState;
+  dispatch: Dispatch<Action>;
 };
 
 export type Action =

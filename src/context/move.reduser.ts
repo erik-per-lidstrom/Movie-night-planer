@@ -1,23 +1,24 @@
-import type { Action, Movie } from "../types";
+import type { Action, Movie, MovieState } from "../types";
 
-export const initialState = {
-  movies: [] as Movie[],
-};
-
-const moveReducer = (state = initialState, action: Action) => {
+const moveReducer = (state: Movie[], action: Action): MovieState => {
   switch (action.type) {
-    case "ADD_MOVIE":
-      return {
-        ...state,
-        movies: [...state.movies, action.payload],
+    case "ADD_MOVIE": {
+      const newMovie: Movie = {
+        id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
+        title: action.payload.title,
+        ageRate: action.payload.ageRate,
+        genre: action.payload.genre,
       };
-    case "REMOVE_MOVIE":
-      return {
-        ...state,
-        movies: state.movies.filter((movie) => movie.title !== action.payload),
-      };
+      return [...state, newMovie];
+    }
+
+    case "REMOVE_MOVIE": {
+      console.log(action.payload);
+
+      return state.filter((movie) => movie.id !== action.payload);
+    }
     default:
-      throw new Error("case duse not mach reduser");
+      return state;
   }
 };
 
