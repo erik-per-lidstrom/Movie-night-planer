@@ -34,7 +34,8 @@ const HomePage = () => {
     const matchinggenre = selectedGenre === "" || movie.genre === selectedGenre;
     const matchingAgeRate =
       selectedAgeRate === "" || movie.ageRate === selectedAgeRate;
-    return matchinggenre && matchingAgeRate;
+    const finall = matchinggenre && matchingAgeRate;
+    return finall;
   });
 
   const removeMovie = (id: string) =>
@@ -61,7 +62,7 @@ const HomePage = () => {
       >
         <option value="">All age rates</option>
         <option value="PG-13">PG-13</option>
-        <option value="">PG-18</option>
+        <option value="PG-18">PG-18</option>
       </select>
       <h1>Movies</h1>
       <p>
