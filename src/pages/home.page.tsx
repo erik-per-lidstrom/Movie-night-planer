@@ -3,6 +3,7 @@ import { useRef } from "react";
 import type { Movie } from "../types";
 import { useContext } from "react";
 import MovieContext from "../context/movie.context";
+import { Link } from "react-router-dom";
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -63,12 +64,15 @@ const HomePage = () => {
         <option value="">PG-18</option>
       </select>
       <h1>Movies</h1>
-      <p>{filteredmovies.length} movies found</p>
+      <p>
+        {filteredmovies.length} movies found of {state.length}
+      </p>
       {filteredmovies.length === 0 && <p>No movies found</p>}
 
       {filteredmovies.map((movie: Movie) => (
         <div key={movie.id}>
           <h2>{movie.title}</h2>
+          <Link to={`/${movie.id}`}>View Details</Link>
           <p>Age Rate: {movie.ageRate}</p>
           <p>Genre: {movie.genre}</p>
           <button
