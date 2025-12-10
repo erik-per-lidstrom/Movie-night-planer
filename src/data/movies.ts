@@ -7,6 +7,7 @@ export const movies: Movie[] = [
     title: "Inception",
     genre: "Science Fiction",
   },
+
   {
     id: "2",
     title: "Non Stop",
@@ -21,8 +22,8 @@ export const movies: Movie[] = [
   },
   {
     id: "4",
-    title: "The Five nights at Freddy's Movie",
-    ageRate: "PG-13",
+    title: "Five nights at Freddy's Movie",
+    ageRate: "PG-18",
     genre: "Horror",
   },
 ];
