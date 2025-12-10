@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Movie } from "../types";
 import { useContext } from "react";
 import MovieContext from "../context/movie.context";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const { state, dispatch } = useContext(MovieContext) || {
@@ -53,6 +54,7 @@ const HomePage = () => {
       {filteredmovies.map((movie: Movie) => (
         <div key={movie.id}>
           <h2>{movie.title}</h2>
+          <Link to={`/${movie.id}`}>View Details</Link>
           <p>Age Rate: {movie.ageRate}</p>
           <p>Genre: {movie.genre}</p>
           <button
