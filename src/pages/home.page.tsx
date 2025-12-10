@@ -45,7 +45,9 @@ const HomePage = () => {
         <option value="">PG-18</option>
       </select>
       <h1>Movies</h1>
-      <p>{filteredmovies.length} movies found</p>
+      <p>
+        {filteredmovies.length} movies found of {state.length}
+      </p>
       {filteredmovies.length === 0 && <p>No movies found</p>}
 
       {filteredmovies.map((movie: Movie) => (
