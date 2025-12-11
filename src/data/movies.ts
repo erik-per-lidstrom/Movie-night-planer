@@ -26,4 +26,18 @@ export const movies: Movie[] = [
     ageRate: "PG-18",
     genre: "Horror",
   },
+
+  {
+    id: "5",
+    title: "IT",
+    ageRate: "PG-18",
+    genre: "Horror",
+  },
+
+  {
+    id: "6",
+    title: "Interstellar",
+    ageRate: "PG-13",
+    genre: "Science Fiction",
+  },
 ];
