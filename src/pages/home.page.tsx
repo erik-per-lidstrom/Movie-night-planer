@@ -5,30 +5,30 @@ import { useContext } from "react";
 import MovieContext from "../context/movie.context";
 import { Link } from "react-router-dom";
 
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-
-const ScrollToTop = () => {
-  const topRef = useRef<HTMLDivElement>(null);
-
-  const handleScroll = () => {
-    if (topRef.current) {
-      topRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  return <div ref={topRef} onClick={handleScroll}></div>;
-};
-
 const HomePage = () => {
+  const [selectedGenre, setSelectedGenre] = useState<string>("");
+  const [selectedAgeRate, setSelectedAgeRate] = useState<string>("");
+  const [searchMovie, setSearchMovie] = useState<string>("");
   const { state, dispatch } = useContext(MovieContext) || {
     state: [],
     dispatch: null,
   };
 
-  const [selectedGenre, setSelectedGenre] = useState<string>("");
-  const [selectedAgeRate, setSelectedAgeRate] = useState<string>("");
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const ScrollToTop = () => {
+    const topRef = useRef<HTMLDivElement>(null);
+
+    const handleScroll = () => {
+      if (topRef.current) {
+        topRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    return <div ref={topRef} onClick={handleScroll}></div>;
+  };
 
   const filteredmovies = state.filter((movie) => {
     const matchinggenre = selectedGenre === "" || movie.genre === selectedGenre;
@@ -38,12 +38,28 @@ const HomePage = () => {
     return finall;
   });
 
+  const handlemovieSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchMovie(event.target.value);
+  };
+
+  const filteredbysearch = filteredmovies.filter((movie) =>
+    movie.title.toLowerCase().includes(searchMovie.toLowerCase())
+  );
+
   const removeMovie = (id: string) =>
     dispatch?.({ type: "REMOVE_MOVIE", payload: id });
 
   return (
     <div>
       <ScrollToTop />
+
+      <input
+        type="text"
+        value={searchMovie}
+        onChange={handlemovieSearch}
+        placeholder="Search Movie"
+      />
+
       <select
         name="genre"
         id="genre"
@@ -64,6 +80,7 @@ const HomePage = () => {
         <option value="PG-13">PG-13</option>
         <option value="PG-18">PG-18</option>
       </select>
+
       <h1>Movies</h1>
       <p>
         {filteredmovies.length} movies found of {state.length}
