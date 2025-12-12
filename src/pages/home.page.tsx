@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import MovieInput from "../components/movieInput";
 
 const HomePage = () => {
+  const [searchmovietitle, setSearchmovietitle] = useState<string>("");
   const [selectedGenre, setSelectedGenre] = useState<string>("");
   const [selectedAgeRate, setSelectedAgeRate] = useState<string>("");
-  const [searchMovie, setSearchMovie] = useState<string>("");
   const { state, dispatch } = useContext(MovieContext) || {
     state: [],
     dispatch: null,
@@ -32,6 +32,10 @@ const HomePage = () => {
   };
 
   const filteredmovies = state.filter((movie) => {
+    const matchingTitle = movie.title
+      .toLowerCase()
+      .includes(searchmovietitle.toLowerCase());
+    if (!matchingTitle) return false;
     const matchinggenre = selectedGenre === "" || movie.genre === selectedGenre;
     const matchingAgeRate =
       selectedAgeRate === "" || movie.ageRate === selectedAgeRate;
@@ -45,6 +49,13 @@ const HomePage = () => {
   return (
     <div>
       <ScrollToTop />
+
+      <input
+        type="text"
+        placeholder="Search by title"
+        value={searchmovietitle}
+        onChange={(event) => setSearchmovietitle(event.target.value)}
+      />
 
       <select
         name="genre"
@@ -85,8 +96,9 @@ const HomePage = () => {
           </button>
         </div>
       ))}
-      <MovieInput />
+
       <button onClick={scrollToTop}>Back To Top</button>
+      <MovieInput />
     </div>
   );
 };
