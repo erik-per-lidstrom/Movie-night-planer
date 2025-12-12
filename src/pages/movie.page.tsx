@@ -20,14 +20,19 @@ const MoviePage = () => {
       <h1>Movie Details Page </h1>
       {movie ? (
         <div className="movie-details flex flex-col ">
-          {movie.imgUrl && <img src={movie.imgUrl} alt={movie.title} />}
+          {movie.imgUrl && (
+            <img
+              className="max-w-2xl h-auto"
+              src={movie.imgUrl}
+              alt={movie.title}
+            />
+          )}
           <h2>{movie.title}</h2>
-          <p>
-            Age Rate: <br /> {movie.ageRate}
-          </p>
-          <p>
-            Genre: <br /> {movie.genre}
-          </p>
+
+          <p>Age Rate: {movie.ageRate}</p>
+
+          <p>Genre: {movie.genre}</p>
+
           <p>
             Description: <br /> {movie.description}
           </p>
