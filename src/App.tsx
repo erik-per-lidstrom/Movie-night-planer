@@ -6,6 +6,7 @@ import MovieContext from "./context/movie.context";
 import { useReducer } from "react";
 import { movieReducer } from "./context/movie.reducer";
 import { movies as mock } from "./data/movies";
+import "./index.css";
 function App() {
   const [movies, dispatch] = useReducer(movieReducer, mock);
   console.log(movies);
