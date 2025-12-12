@@ -31,10 +31,6 @@ const HomePage = () => {
     return finall;
   });
 
-  const handlemovieSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchMovie(event.target.value);
-  };
-
   const removeMovie = (id: string) =>
     dispatch?.({ type: "REMOVE_MOVIE", payload: id });
 
