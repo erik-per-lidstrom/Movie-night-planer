@@ -4,6 +4,7 @@ import type { Movie } from "../types";
 import { useContext } from "react";
 import MovieContext from "../context/movie.context";
 import { Link } from "react-router-dom";
+import MovieInput from "../components/movieInput";
 
 const HomePage = () => {
   const [selectedGenre, setSelectedGenre] = useState<string>("");
@@ -84,6 +85,7 @@ const HomePage = () => {
           </button>
         </div>
       ))}
+      <MovieInput />
       <button onClick={scrollToTop}>Back To Top</button>
     </div>
   );
