@@ -5,6 +5,8 @@ export type Movie = {
   ageRate: string;
   title: string;
   genre: string;
+  description: string;
+  imgUrl?: string;
 };
 
 export type movieDraft = Omit<Movie, "id">;

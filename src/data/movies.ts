@@ -6,6 +6,7 @@ export const movies: Movie[] = [
     ageRate: "PG-13",
     title: "Inception",
     genre: "Science Fiction",
+    description: "A mind-bending thriller about dream invasion.",
   },
 
   {
@@ -13,18 +14,21 @@ export const movies: Movie[] = [
     title: "Non Stop",
     ageRate: "PG-13",
     genre: "Crime",
+    description: "An action-packed thriller set on a transatlantic flight.",
   },
   {
     id: "3",
     title: "Pulp Fiction",
     ageRate: "PG-18",
     genre: "Crime",
+    description: "A dark comedy crime film with intertwining stories.",
   },
   {
     id: "4",
     title: "Five nights at Freddy's Movie",
     ageRate: "PG-18",
     genre: "Horror",
+    description: "A horror film based on the popular video game series.",
   },
 
   {
@@ -32,6 +36,8 @@ export const movies: Movie[] = [
     title: "IT",
     ageRate: "PG-18",
     genre: "Horror",
+    description:
+      "A horror film about a shape-shifting clown terrorizing a town.",
   },
 
   {
@@ -39,5 +45,6 @@ export const movies: Movie[] = [
     title: "Interstellar",
     ageRate: "PG-13",
     genre: "Science Fiction",
+    description: "A sci-fi epic about space exploration and time dilation.",
   },
 ];

@@ -16,9 +16,11 @@ const MoviePage = () => {
       <h1>Movie Details Page </h1>
       {movie ? (
         <div>
+          {movie.imgUrl && <img src={movie.imgUrl} alt={movie.title} />}
           <h2>{movie.title}</h2>
           <p>Age Rate: {movie.ageRate}</p>
           <p>Genre: {movie.genre}</p>
+          <p>Description: {movie.description}</p>
         </div>
       ) : (
         <p>Movie not found</p>
