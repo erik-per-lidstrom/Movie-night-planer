@@ -16,15 +16,21 @@ const MoviePage = () => {
   const movie = state.find((movie) => movie.id === movieId);
 
   return (
-    <div>
+    <div className="movie-page p-4">
       <h1>Movie Details Page </h1>
       {movie ? (
-        <div>
+        <div className="movie-details flex flex-col ">
           {movie.imgUrl && <img src={movie.imgUrl} alt={movie.title} />}
           <h2>{movie.title}</h2>
-          <p>Age Rate: {movie.ageRate}</p>
-          <p>Genre: {movie.genre}</p>
-          <p>Description: {movie.description}</p>
+          <p>
+            Age Rate: <br /> {movie.ageRate}
+          </p>
+          <p>
+            Genre: <br /> {movie.genre}
+          </p>
+          <p>
+            Description: <br /> {movie.description}
+          </p>
         </div>
       ) : (
         <p>Movie not found</p>
