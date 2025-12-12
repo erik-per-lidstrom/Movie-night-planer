@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useRef } from "react";
 import type { Movie } from "../types";
 import { useContext } from "react";
 import MovieContext from "../context/movie.context";
-import { Link } from "react-router-dom";
-import MovieInput from "../components/movieInput";
+import MovieInput from "../components/movieInput.component";
+import ScrollToTop from "../components/scrollToTop.component";
+import MovieItem from "../components/movieItem.component";
 
 const HomePage = () => {
   const [searchmovietitle, setSearchmovietitle] = useState<string>("");
@@ -19,18 +19,6 @@ const HomePage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const ScrollToTop = () => {
-    const topRef = useRef<HTMLDivElement>(null);
-
-    const handleScroll = () => {
-      if (topRef.current) {
-        topRef.current.scrollIntoView({ behavior: "smooth" });
-      }
-    };
-
-    return <div ref={topRef} onClick={handleScroll}></div>;
-  };
-
   const filteredmovies = state.filter((movie) => {
     const matchingTitle = movie.title
       .toLowerCase()
@@ -42,6 +30,10 @@ const HomePage = () => {
     const finall = matchinggenre && matchingAgeRate;
     return finall;
   });
+
+  const handlemovieSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchMovie(event.target.value);
+  };
 
   const removeMovie = (id: string) =>
     dispatch?.({ type: "REMOVE_MOVIE", payload: id });
@@ -83,10 +75,7 @@ const HomePage = () => {
       {filteredmovies.length === 0 && <p>No movies found</p>}
       {filteredmovies.map((movie: Movie) => (
         <div key={movie.id}>
-          <h2>{movie.title}</h2>
-          <Link to={`/${movie.id}`}>View Details</Link>
-          <p>Age Rate: {movie.ageRate}</p>
-          <p>Genre: {movie.genre}</p>
+          <MovieItem movie={movie} />
           <button
             onClick={() => {
               removeMovie(movie.id);

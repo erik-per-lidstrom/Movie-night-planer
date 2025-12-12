@@ -5,6 +5,8 @@ export type Movie = {
   ageRate: string;
   title: string;
   genre: string;
+  description: string;
+  imgUrl?: string;
 };
 
 export type movieDraft = Omit<Movie, "id">;
@@ -19,3 +21,7 @@ export type MovieContextType = {
 export type Action =
   | { type: "ADD_MOVIE"; payload: Movie }
   | { type: "REMOVE_MOVIE"; payload: string };
+
+export type MovieProps = {
+  movie: Movie;
+};

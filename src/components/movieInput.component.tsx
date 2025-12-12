@@ -11,6 +11,8 @@ const MovieInput = () => {
     ageRate: "",
     title: "",
     genre: "",
+    description: "",
+    imgUrl: "",
   });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -41,6 +43,8 @@ const MovieInput = () => {
       ageRate: "",
       title: "",
       genre: "",
+      description: "",
+      imgUrl: "",
     });
   };
   return (
@@ -69,6 +73,22 @@ const MovieInput = () => {
           value={movie.genre}
           onChange={handleChange}
           placeholder="Genre"
+        />
+        <label htmlFor="description">Description</label>
+        <input
+          type="text"
+          name="description"
+          value={movie.description}
+          onChange={handleChange}
+          placeholder="Description"
+        />
+        <label htmlFor="imgUrl">Image URL</label>
+        <input
+          type="text"
+          name="imgUrl"
+          value={movie.imgUrl}
+          onChange={handleChange}
+          placeholder="Image URL"
         />
         <button type="submit">Add Movie</button>
       </form>

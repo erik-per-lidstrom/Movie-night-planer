@@ -8,6 +8,8 @@ export const movieReducer = (state: MovieState, action: Action): MovieState => {
         title: action.payload.title,
         ageRate: action.payload.ageRate,
         genre: action.payload.genre,
+        description: action.payload.description,
+        imgUrl: action.payload.imgUrl,
       };
       return [...state, newMovie];
     }
