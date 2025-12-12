@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MovieContext from "../context/movie.context";
 
@@ -8,6 +8,10 @@ const MoviePage = () => {
     dispatch: null,
   };
   const { movieId } = useParams();
+
+  useEffect(() => {
+    document.title = `${movie?.title || "Unknown Movie"} Movie Details Page`;
+  }, []);
 
   const movie = state.find((movie) => movie.id === movieId);
 
