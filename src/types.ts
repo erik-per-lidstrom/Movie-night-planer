@@ -19,3 +19,7 @@ export type MovieContextType = {
 export type Action =
   | { type: "ADD_MOVIE"; payload: Movie }
   | { type: "REMOVE_MOVIE"; payload: string };
+
+export type MovieProps = {
+  movie: Movie;
+};

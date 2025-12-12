@@ -1,11 +1,10 @@
 import { useState } from "react";
-
 import type { Movie } from "../types";
 import { useContext } from "react";
 import MovieContext from "../context/movie.context";
-import { Link } from "react-router-dom";
 import MovieInput from "../components/movieInput.component";
 import ScrollToTop from "../components/scrollToTop.component";
+import MovieItem from "../components/movieItem.component";
 
 const HomePage = () => {
   const [selectedGenre, setSelectedGenre] = useState<string>("");
@@ -72,10 +71,7 @@ const HomePage = () => {
       {filteredmovies.length === 0 && <p>No movies found</p>}
       {filteredmovies.map((movie: Movie) => (
         <div key={movie.id}>
-          <h2>{movie.title}</h2>
-          <Link to={`/${movie.id}`}>View Details</Link>
-          <p>Age Rate: {movie.ageRate}</p>
-          <p>Genre: {movie.genre}</p>
+          <MovieItem movie={movie} />
           <button
             onClick={() => {
               removeMovie(movie.id);
