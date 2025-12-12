@@ -56,7 +56,6 @@ const HomePage = () => {
         <option value="Crime">Crime</option>
         <option value="Horror">Horror</option>
       </select>
-
       <select
         name="ageRate"
         id="ageRate"
@@ -66,13 +65,11 @@ const HomePage = () => {
         <option value="PG-13">PG-13</option>
         <option value="PG-18">PG-18</option>
       </select>
-
       <h1>Movies</h1>
       <p>
         {filteredmovies.length} movies found of {state.length}
       </p>
       {filteredmovies.length === 0 && <p>No movies found</p>}
-
       {filteredmovies.map((movie: Movie) => (
         <div key={movie.id}>
           <h2>{movie.title}</h2>
