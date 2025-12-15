@@ -19,12 +19,16 @@ const MoviePage = () => {
     <div className="movie-page p-4">
       <h1>Movie Details Page </h1>
       <div className="flex flex-col lg:flex-row p-4 gap-4 items-center md:items-start">
-        {movie?.imgUrl && (
+        {movie?.imgUrl !== "" && movie?.imgUrl ? (
           <img
-            className="max-w-2xl h-auto"
             src={movie.imgUrl}
             alt={movie.title}
+            className="w-64 h-auto rounded"
           />
+        ) : (
+          <div className="w-64 h-96 bg-gray-300 flex items-center justify-center rounded">
+            <span className="text-gray-600">No Image Available</span>
+          </div>
         )}
         {movie ? (
           <div className="movie-details flex flex-col ">
