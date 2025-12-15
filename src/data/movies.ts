@@ -11,6 +11,7 @@ export const movies: Movie[] = [
     imgUrl:
       "https://i.pinimg.com/736x/7d/fd/dd/7dfddd911b8040729896c5be83f8e139.jpg",
     runtime: "2h 28m",
+    thilleriframeUrl: "https://www.imdb.com/videoembed/vi2959588889",
   },
 
   {

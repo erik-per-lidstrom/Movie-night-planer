@@ -8,6 +8,7 @@ export type Movie = {
   description: string;
   imgUrl?: string;
   runtime?: string | number;
+  thilleriframeUrl?: string;
 };
 
 export type movieDraft = Omit<Movie, "id">;
