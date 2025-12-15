@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Movie } from "../types";
 import { useContext } from "react";
+import { HiArchiveBoxXMark } from "react-icons/hi2";
 import MovieContext from "../context/movie.context";
 import MovieInput from "../components/movieInput.component";
 import ScrollToTop from "../components/scrollToTop.component";
@@ -81,7 +82,7 @@ const HomePage = () => {
                 removeMovie(movie.id);
               }}
             >
-              X
+              <HiArchiveBoxXMark className="text-red-600 w-6 h-auto " />
             </button>
           </div>
         ))}
