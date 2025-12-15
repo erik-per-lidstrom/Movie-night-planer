@@ -18,28 +18,30 @@ const MoviePage = () => {
   return (
     <div className="movie-page p-4">
       <h1>Movie Details Page </h1>
-      {movie ? (
-        <div className="movie-details flex flex-col ">
-          {movie.imgUrl && (
-            <img
-              className="max-w-2xl h-auto"
-              src={movie.imgUrl}
-              alt={movie.title}
-            />
-          )}
-          <h2>{movie.title}</h2>
+      <div className="flex flex-col lg:flex-row p-4 gap-4 items-center md:items-start">
+        {movie?.imgUrl && (
+          <img
+            className="max-w-2xl h-auto"
+            src={movie.imgUrl}
+            alt={movie.title}
+          />
+        )}
+        {movie ? (
+          <div className="movie-details flex flex-col ">
+            <h2>{movie.title}</h2>
 
-          <p>Age Rate: {movie.ageRate}</p>
+            <p>Age Rate: {movie.ageRate}</p>
 
-          <p>Genre: {movie.genre}</p>
+            <p>Genre: {movie.genre}</p>
 
-          <p>
-            Description: <br /> {movie.description}
-          </p>
-        </div>
-      ) : (
-        <p>Movie not found</p>
-      )}
+            <p>
+              Description: <br /> {movie.description}
+            </p>
+          </div>
+        ) : (
+          <p>Movie not found</p>
+        )}
+      </div>
     </div>
   );
 };

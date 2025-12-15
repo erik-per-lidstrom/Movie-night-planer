@@ -48,48 +48,58 @@ const MovieInput = () => {
     });
   };
   return (
-    <div>
+    <div className="movie-input mb-4 flex flex-col gap-4">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title</label>
-        <input
-          type="text"
-          name="title"
-          value={movie.title}
-          onChange={handleChange}
-          placeholder="Movie Title"
-        />
-        <label htmlFor="ageRate">Age Rate</label>
-        <input
-          type="text"
-          name="ageRate"
-          value={movie.ageRate}
-          onChange={handleChange}
-          placeholder="Age Rate"
-        />
-        <label htmlFor="genre">Genre</label>
-        <input
-          type="text"
-          name="genre"
-          value={movie.genre}
-          onChange={handleChange}
-          placeholder="Genre"
-        />
-        <label htmlFor="description">Description</label>
-        <input
-          type="text"
-          name="description"
-          value={movie.description}
-          onChange={handleChange}
-          placeholder="Description"
-        />
-        <label htmlFor="imgUrl">Image URL</label>
-        <input
-          type="text"
-          name="imgUrl"
-          value={movie.imgUrl}
-          onChange={handleChange}
-          placeholder="Image URL"
-        />
+        <div>
+          <label htmlFor="title">Title:</label>
+          <input
+            type="text"
+            name="title"
+            value={movie.title}
+            onChange={handleChange}
+            placeholder="Movie Title"
+          />
+        </div>
+        <div>
+          <label htmlFor="ageRate">Age Rate:</label>
+          <input
+            type="text"
+            name="ageRate"
+            value={movie.ageRate}
+            onChange={handleChange}
+            placeholder="Age Rate"
+          />
+        </div>
+        <div>
+          <label htmlFor="genre">Genre:</label>
+          <input
+            type="text"
+            name="genre"
+            value={movie.genre}
+            onChange={handleChange}
+            placeholder="Genre"
+          />
+        </div>
+        <div>
+          <label htmlFor="description">Description:</label>
+          <input
+            type="text"
+            name="description"
+            value={movie.description}
+            onChange={handleChange}
+            placeholder="Description"
+          />
+        </div>
+        <div>
+          <label htmlFor="imgUrl">Image URL:</label>
+          <input
+            type="text"
+            name="imgUrl"
+            value={movie.imgUrl}
+            onChange={handleChange}
+            placeholder="Image URL"
+          />
+        </div>
         <button type="submit">Add Movie</button>
       </form>
     </div>

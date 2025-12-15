@@ -29,6 +29,8 @@ export const movies: Movie[] = [
     ageRate: "PG-18",
     genre: "Horror",
     description: "A horror film based on the popular video game series.",
+    imgUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-a1gxxE4wYH8e38X6pbh6BUiWBHbDqFmy_VkVWXM2S69Gl2kJZPSXuYcbTUq1tCIU-TSabg&s",
   },
 
   {
