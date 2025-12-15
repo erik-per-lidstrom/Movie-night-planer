@@ -53,6 +53,7 @@ const MovieInput = () => {
         <div>
           <label htmlFor="title">Title:</label>
           <input
+            className="border rounded bg-accent "
             type="text"
             name="title"
             value={movie.title}
@@ -63,6 +64,7 @@ const MovieInput = () => {
         <div>
           <label htmlFor="ageRate">Age Rate:</label>
           <input
+            className="border rounded bg-accent "
             type="text"
             name="ageRate"
             value={movie.ageRate}
@@ -73,6 +75,7 @@ const MovieInput = () => {
         <div>
           <label htmlFor="genre">Genre:</label>
           <input
+            className="border rounded bg-accent "
             type="text"
             name="genre"
             value={movie.genre}
@@ -83,6 +86,7 @@ const MovieInput = () => {
         <div>
           <label htmlFor="description">Description:</label>
           <input
+            className="border rounded bg-accent "
             type="text"
             name="description"
             value={movie.description}
@@ -93,6 +97,7 @@ const MovieInput = () => {
         <div>
           <label htmlFor="imgUrl">Image URL:</label>
           <input
+            className="border rounded bg-accent "
             type="text"
             name="imgUrl"
             value={movie.imgUrl}

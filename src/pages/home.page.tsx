@@ -69,12 +69,12 @@ const HomePage = () => {
       <p>
         {filteredmovies.length} movies found of {state.length}
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  my-4">
         {filteredmovies.length === 0 && <p>No movies found</p>}
         {filteredmovies.map((movie: Movie) => (
           <div
             key={movie.id}
-            className="flex flex-col items-center gap-4 border p-4 rounded"
+            className="flex flex-col items-center gap-4 border p-4 rounded bg-accent"
           >
             <MovieItem movie={movie} />
             <button
