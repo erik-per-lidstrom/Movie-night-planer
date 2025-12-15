@@ -38,6 +38,8 @@ const MoviePage = () => {
 
             <p>Genre: {movie.genre}</p>
 
+            <p>Runtime: {movie.runtime}</p>
+
             <p>
               Description: <br /> {movie.description}
             </p>

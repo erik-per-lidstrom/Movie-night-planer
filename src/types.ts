@@ -7,6 +7,7 @@ export type Movie = {
   genre: string;
   description: string;
   imgUrl?: string;
+  runtime?: string | number;
 };
 
 export type movieDraft = Omit<Movie, "id">;
