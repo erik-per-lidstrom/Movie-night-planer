@@ -43,6 +43,15 @@ const MoviePage = () => {
             <p>
               Description: <br /> {movie.description}
             </p>
+
+            {movie.thilleriframeUrl && (
+              <iframe
+                src={movie.thilleriframeUrl}
+                title={`${movie.title} Trailer`}
+                className="w-full h-64 md:h-96 rounded"
+                allowFullScreen
+              ></iframe>
+            )}
           </div>
         ) : (
           <p>Movie not found</p>

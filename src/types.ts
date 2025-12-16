@@ -6,8 +6,11 @@ export type Movie = {
   title: string;
   genre: string;
   description: string;
-  imgUrl: string;
-  runtime: string | number;
+<<<<<<< HEAD
+  imgUrl?: string;
+  runtime?: string | number;
+  thilleriframeUrl?: string;
+>>>>>>> a247b3d7b414a4e1f75f03d074dd298dcc4524ab
 };
 
 export type movieDraft = Omit<Movie, "id">;
