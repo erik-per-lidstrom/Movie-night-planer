@@ -6,6 +6,7 @@ export type Movie = {
   title: string;
   genre: string;
   description: string;
+
   imgUrl?: string;
   runtime?: string | number;
   thilleriframeUrl?: string;

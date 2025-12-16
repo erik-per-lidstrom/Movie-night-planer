@@ -13,6 +13,7 @@ const MovieInput = () => {
     genre: "",
     description: "",
     imgUrl: "",
+    runtime: "",
   });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +46,7 @@ const MovieInput = () => {
       genre: "",
       description: "",
       imgUrl: "",
+      runtime: "",
     });
   };
   return (
@@ -103,6 +105,17 @@ const MovieInput = () => {
             value={movie.imgUrl}
             onChange={handleChange}
             placeholder="Image URL"
+          />
+        </div>
+        <div>
+          <label htmlFor="runtime">Runtime:</label>
+          <input
+            className="border rounded bg-accent "
+            type="text"
+            name="runtime"
+            value={movie.runtime}
+            onChange={handleChange}
+            placeholder="runtime"
           />
         </div>
         <button type="submit">Add Movie</button>
