@@ -50,6 +50,7 @@ const MoviePage = () => {
                 title={`${movie.title} Trailer`}
                 className="w-full h-64 md:h-96 rounded"
                 allowFullScreen
+                loading="lazy"
               ></iframe>
             )}
           </div>

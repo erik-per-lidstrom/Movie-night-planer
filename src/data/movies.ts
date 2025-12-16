@@ -24,6 +24,7 @@ export const movies: Movie[] = [
     imgUrl:
       "https://m.media-amazon.com/images/M/MV5BOTI3NzcxMjkzMl5BMl5BanBnXkFtZTgwMDY0NTQ0MDE@._V1_.jpg",
     runtime: "1h 46m",
+    thilleriframeUrl: "https://www.imdb.com/videoembed/vi1005889561",
   },
   {
     id: "3",
@@ -35,6 +36,7 @@ export const movies: Movie[] = [
     imgUrl:
       "https://m.media-amazon.com/images/M/MV5BYTViYTE3ZGQtNDBlMC00ZTAyLTkyODMtZGRiZDg0MjA2YThkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
     runtime: "2h 34m",
+    thilleriframeUrl: "https://www.imdb.com/videoembed/vi2620371481",
   },
   {
     id: "4",
@@ -46,6 +48,7 @@ export const movies: Movie[] = [
     imgUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-a1gxxE4wYH8e38X6pbh6BUiWBHbDqFmy_VkVWXM2S69Gl2kJZPSXuYcbTUq1tCIU-TSabg&s",
     runtime: "1h 49m",
+    thilleriframeUrl: "https://www.imdb.com/videoembed/vi889046809",
   },
 
   {
@@ -58,6 +61,7 @@ export const movies: Movie[] = [
     imgUrl:
       "https://upload.wikimedia.org/wikipedia/en/5/5a/It_%282017%29_poster.jpg",
     runtime: "2h 15m",
+    thilleriframeUrl: "https://www.imdb.com/videoembed/vi1396095257",
   },
 
   {
@@ -70,5 +74,6 @@ export const movies: Movie[] = [
     imgUrl:
       "https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMjI2My00ODA1LTlkNzItOWFjMDU5ZDJlYWY3XkEyXkFqcGc@._V1_.jpg",
     runtime: "2h 49m",
+    thilleriframeUrl: "https://www.imdb.com/videoembed/vi1586278169",
   },
 ];
