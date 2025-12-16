@@ -10,6 +10,7 @@ export const movieReducer = (state: MovieState, action: Action): MovieState => {
         genre: action.payload.genre,
         description: action.payload.description,
         imgUrl: action.payload.imgUrl,
+        runtime: action.payload.runtime,
       };
       return [...state, newMovie];
     }

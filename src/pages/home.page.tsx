@@ -88,7 +88,10 @@ const HomePage = () => {
         ))}
       </div>
 
-      <button className=" fixed bottom-4 right-4" onClick={scrollToTop}>
+      <button
+        className="scrollToTop fixed bottom-4 right-4"
+        onClick={scrollToTop}
+      >
         Back To Top
       </button>
       <MovieInput />
