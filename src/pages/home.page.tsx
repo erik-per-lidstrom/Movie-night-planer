@@ -5,6 +5,7 @@ import MovieContext from "../context/movie.context";
 import MovieInput from "../components/movieInput.component";
 import ScrollToTop from "../components/scrollToTop.component";
 import MovieItem from "../components/movieItem.component";
+import { HiArchiveBoxXMark } from "react-icons/hi2";
 
 const HomePage = () => {
   const [searchmovietitle, setSearchmovietitle] = useState<string>("");
@@ -68,19 +69,24 @@ const HomePage = () => {
       <p className="movie-count">
         {filteredmovies.length} movies found of {state.length}
       </p>
-      {filteredmovies.length === 0 && <p>No movies found</p>}
-      {filteredmovies.map((movie: Movie) => (
-        <div key={movie.id}>
-          <MovieItem movie={movie} />
-          <button
-            onClick={() => {
-              removeMovie(movie.id);
-            }}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  my-4">
+        {filteredmovies.length === 0 && <p>No movies found</p>}
+        {filteredmovies.map((movie: Movie) => (
+          <div
+            key={movie.id}
+            className="flex flex-col items-center gap-4 border p-4 rounded bg-accent"
           >
-            X
-          </button>
-        </div>
-      ))}
+            <MovieItem movie={movie} />
+            <button
+              onClick={() => {
+                removeMovie(movie.id);
+              }}
+            >
+              <HiArchiveBoxXMark className="text-red-600 w-6 h-auto " />
+            </button>
+          </div>
+        ))}
+      </div>
 
       <button onClick={scrollToTop}>Back To Top</button>
       <MovieInput />

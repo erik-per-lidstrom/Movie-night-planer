@@ -54,7 +54,7 @@ const MoviePage = () => {
               <iframe
                 src={movie.thilleriframeUrl}
                 title={`${movie.title} Trailer`}
-                className="w-full h-50 md:h-96 rounded"
+                className="w-full h-64 md:h-96 rounded"
                 allowFullScreen
                 loading="lazy"
               ></iframe>
