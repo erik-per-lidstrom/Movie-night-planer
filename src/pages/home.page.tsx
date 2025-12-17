@@ -44,6 +44,7 @@ const HomePage = () => {
         placeholder="Search by title"
         value={searchmovietitle}
         onChange={(event) => setSearchmovietitle(event.target.value)}
+        id="movie-search"
       />
 
       <select

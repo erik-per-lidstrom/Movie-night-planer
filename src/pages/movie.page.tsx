@@ -44,20 +44,21 @@ const MoviePage = () => {
               ></iframe>
             )}
 
-            <p>
-              <strong>Age Rate:</strong> {movie.ageRate}
+            <p id="ageRate-movies">
+              <h4>Age Rate:</h4> {movie.ageRate}
             </p>
 
-            <p>
-              <strong>Genre:</strong> {movie.genre}
+            <p id="genre-movies">
+              <h4>Genre:</h4> {movie.genre}
             </p>
 
-            <p>
-              <strong>Runtime:</strong> {movie.runtime}
+            <p id="runtime-movies">
+              <h4>Runtime:</h4>
+              {movie.runtime}
             </p>
 
-            <p>
-              <strong>Description:</strong> <br /> {movie.description}
+            <p id="description-movies">
+              <h4>Description:</h4> <br /> {movie.description}
             </p>
           </div>
         ) : (
