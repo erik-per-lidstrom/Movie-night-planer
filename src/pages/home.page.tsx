@@ -36,9 +36,9 @@ const HomePage = () => {
     dispatch?.({ type: "REMOVE_MOVIE", payload: id });
 
   return (
-    <div>
+    <div className="home-page p-4 max-w-7xl mx-auto">
       <ScrollToTop />
-
+      <h1>Movies</h1>
       <input
         type="text"
         placeholder="Search by title"
@@ -65,8 +65,8 @@ const HomePage = () => {
         <option value="PG-13">PG-13</option>
         <option value="PG-18">PG-18</option>
       </select>
-      <h1>Movies</h1>
-      <p className="movie-count">
+
+      <p>
         {filteredmovies.length} movies found of {state.length}
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  my-4">
@@ -74,7 +74,7 @@ const HomePage = () => {
         {filteredmovies.map((movie: Movie) => (
           <div
             key={movie.id}
-            className="flex flex-col items-center gap-4 border p-4 rounded bg-accent"
+            className="min-h-2.5   flex flex-col items-center gap-4 border p-4 rounded bg-accent"
           >
             <MovieItem movie={movie} />
             <button
@@ -88,7 +88,12 @@ const HomePage = () => {
         ))}
       </div>
 
-      <button onClick={scrollToTop}>Back To Top</button>
+      <button
+        className="scrollToTop fixed bottom-4 right-4"
+        onClick={scrollToTop}
+      >
+        Back To Top
+      </button>
       <MovieInput />
     </div>
   );
