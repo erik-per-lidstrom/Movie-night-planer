@@ -50,8 +50,11 @@ const MovieInput = () => {
     });
   };
   return (
-    <div className="movie-input mb-4 flex flex-col gap-4">
-      <form onSubmit={handleSubmit}>
+    <div>
+      <form
+        className=" grid col-2 movie-input mb-4 gap-4"
+        onSubmit={handleSubmit}
+      >
         <div>
           <label htmlFor="title">Title:</label>
           <input
