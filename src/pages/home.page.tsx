@@ -74,7 +74,7 @@ const HomePage = () => {
         {filteredmovies.map((movie: Movie) => (
           <div
             key={movie.id}
-            className="flex flex-col items-center gap-4 border p-4 rounded bg-accent"
+            className="min-h-2.5  flex flex-col items-center gap-4 border p-4 rounded bg-accent"
           >
             <MovieItem movie={movie} />
             <button
