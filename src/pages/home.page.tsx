@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { Movie } from "../types";
 import { useContext } from "react";
-import { HiArchiveBoxXMark } from "react-icons/hi2";
 import MovieContext from "../context/movie.context";
 import MovieInput from "../components/movieInput.component";
 import ScrollToTop from "../components/scrollToTop.component";
@@ -36,9 +35,9 @@ const HomePage = () => {
     dispatch?.({ type: "REMOVE_MOVIE", payload: id });
 
   return (
-    <div className="home-page p-4 max-w-7xl mx-auto">
+    <div>
       <ScrollToTop />
-      <h1>Movies</h1>
+
       <input
         type="text"
         placeholder="Search by title"
@@ -65,35 +64,25 @@ const HomePage = () => {
         <option value="PG-13">PG-13</option>
         <option value="PG-18">PG-18</option>
       </select>
-
-      <p>
+      <h1>Movies</h1>
+      <p className="movie-count">
         {filteredmovies.length} movies found of {state.length}
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  my-4">
-        {filteredmovies.length === 0 && <p>No movies found</p>}
-        {filteredmovies.map((movie: Movie) => (
-          <div
-            key={movie.id}
-            className="flex flex-col items-center gap-4 border p-4 rounded bg-accent"
+      {filteredmovies.length === 0 && <p>No movies found</p>}
+      {filteredmovies.map((movie: Movie) => (
+        <div key={movie.id}>
+          <MovieItem movie={movie} />
+          <button
+            onClick={() => {
+              removeMovie(movie.id);
+            }}
           >
-            <MovieItem movie={movie} />
-            <button
-              onClick={() => {
-                removeMovie(movie.id);
-              }}
-            >
-              <HiArchiveBoxXMark className="text-red-600 w-6 h-auto " />
-            </button>
-          </div>
-        ))}
-      </div>
+            X
+          </button>
+        </div>
+      ))}
 
-      <button
-        className="scrollToTop fixed bottom-4 right-4"
-        onClick={scrollToTop}
-      >
-        Back To Top
-      </button>
+      <button onClick={scrollToTop}>Back To Top</button>
       <MovieInput />
     </div>
   );
