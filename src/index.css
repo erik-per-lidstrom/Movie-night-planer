@@ -17,7 +17,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --radius: 0.625rem;
-  --background: oklch(0.99 0.01 160);
+  --background: oklch(0.96 0.02 145);
   --foreground: oklch(0.147 0.004 49.25);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.147 0.004 49.25);
@@ -66,6 +66,7 @@ body {
   justify-content: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--background);
 }
 
 h1 {
@@ -92,6 +93,22 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.movie-count {
+  text-align: center;
+}
+
+/* Style for movie details*/
+
+img {
+  box-shadow: #661fd1 0px 0px 8px 0px;
+}
+
+.movie-details h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  border: #1a1a1a 2px double;
 }
 
 @media (prefers-color-scheme: light) {

@@ -34,6 +34,16 @@ const MoviePage = () => {
           <div className="movie-details flex flex-col ">
             <h2>{movie.title}</h2>
 
+            {movie.thilleriframeUrl && (
+              <iframe
+                src={movie.thilleriframeUrl}
+                title={`${movie.title} Trailer`}
+                className="w-full h-64 md:h-96 rounded"
+                allowFullScreen
+                loading="lazy"
+              ></iframe>
+            )}
+
             <p>
               <strong>Age Rate:</strong> {movie.ageRate}
             </p>
@@ -49,16 +59,6 @@ const MoviePage = () => {
             <p>
               <strong>Description:</strong> <br /> {movie.description}
             </p>
-
-            {movie.thilleriframeUrl && (
-              <iframe
-                src={movie.thilleriframeUrl}
-                title={`${movie.title} Trailer`}
-                className="w-full h-64 md:h-96 rounded"
-                allowFullScreen
-                loading="lazy"
-              ></iframe>
-            )}
           </div>
         ) : (
           <p>Movie not found</p>
