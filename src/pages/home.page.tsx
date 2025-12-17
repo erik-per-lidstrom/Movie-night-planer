@@ -2,10 +2,10 @@ import { useState } from "react";
 import type { Movie } from "../types";
 import { useContext } from "react";
 import MovieContext from "../context/movie.context";
-import MovieInput from "../components/movieInput.component";
 import ScrollToTop from "../components/scrollToTop.component";
 import MovieItem from "../components/movieItem.component";
 import { HiArchiveBoxXMark } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [searchmovietitle, setSearchmovietitle] = useState<string>("");
@@ -32,8 +32,12 @@ const HomePage = () => {
     return finall;
   });
 
-  const removeMovie = (id: string) =>
+  // on remove movie update state and local storage
+  const removeMovie = (id: string) => {
     dispatch?.({ type: "REMOVE_MOVIE", payload: id });
+    const updatedMovies = state.filter((movie) => movie.id !== id);
+    localStorage.setItem("movies", JSON.stringify(updatedMovies));
+  };
 
   return (
     <div className="home-page p-4 max-w-7xl mx-auto">
@@ -95,7 +99,7 @@ const HomePage = () => {
       >
         Back To Top
       </button>
-      <MovieInput />
+      <Link to="/add">Add Movie</Link>
     </div>
   );
 };
