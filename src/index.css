@@ -75,6 +75,21 @@ h1 {
   margin: 0 0 0.4em 0;
 }
 
+.movie-count {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+#genre {
+  cursor: pointer;
+  text-align: center;
+}
+
+#ageRate {
+  cursor: pointer;
+  text-align: center;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

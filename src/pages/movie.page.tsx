@@ -34,21 +34,27 @@ const MoviePage = () => {
           <div className="movie-details flex flex-col ">
             <h2>{movie.title}</h2>
 
-            <p>Age Rate: {movie.ageRate}</p>
-
-            <p>Genre: {movie.genre}</p>
-
-            <p>Runtime: {movie.runtime}</p>
+            <p>
+              <strong>Age Rate:</strong> {movie.ageRate}
+            </p>
 
             <p>
-              Description: <br /> {movie.description}
+              <strong>Genre:</strong> {movie.genre}
+            </p>
+
+            <p>
+              <strong>Runtime:</strong> {movie.runtime}
+            </p>
+
+            <p>
+              <strong>Description:</strong> <br /> {movie.description}
             </p>
 
             {movie.thilleriframeUrl && (
               <iframe
                 src={movie.thilleriframeUrl}
                 title={`${movie.title} Trailer`}
-                className="w-full h-64 md:h-96 rounded"
+                className="w-full h-50 md:h-96 rounded"
                 allowFullScreen
                 loading="lazy"
               ></iframe>
