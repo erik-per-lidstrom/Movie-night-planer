@@ -4,6 +4,7 @@ import type { Event } from "../types/event.types";
 import type { Movie } from "../types/movie.types";
 const EventDetails = () => {
   const { eventId } = useParams();
+  const currentUser = JSON.parse(localStorage.getItem("user") || "null");
 
   const [event, setEvent] = useState<Event | null>(null);
 
@@ -52,6 +53,14 @@ const EventDetails = () => {
           <p>Genre: {event.genre}</p>
           <p>Description: {event.description}</p>
 
+          {currentUser?.role === "admin" && (
+            <Link to={`/events/${event._id}/add-movie`}>
+              <button className="bg-white text-black px-4 py-2 rounded mt-4 inline-block border hover:bg-gray-200">
+                Add Movie
+              </button>
+            </Link>
+          )}
+
           <h2 className="text-xl mt-4 mb-2">Movies</h2>
           {movies.length === 0 ? (
             <p>No movies for this event yet.</p>
@@ -72,7 +81,7 @@ const EventDetails = () => {
                   )}
                   <Link
                     to={`/movie/${movie._id}`}
-                    className="inline-block mt-2 bg-blue-500 text-white px-3 py-1 rounded"
+                    className="inline-block mt-2 bg-white text-black px-3 py-1 rounded border hover:bg-gray-200"
                   >
                     View Movie Details
                   </Link>

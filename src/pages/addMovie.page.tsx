@@ -16,14 +16,15 @@ const AddMoviePage = () => {
 
   // Hämta redan skapade filmer för detta event
   useEffect(() => {
-    if (!eventId) return;
-    const token = localStorage.getItem("token");
-    if (!token) return;
+    if (!eventId) return; // visa ett meddelande om event saknas
 
     const fetchMovies = async () => {
       setLoading(true);
       setFetchError("");
       try {
+        const token = localStorage.getItem("token");
+        if (!token) throw new Error("You must be logged in");
+
         const res = await fetch(
           `http://localhost:4000/api/movies/event/${eventId}`,
           {
@@ -31,11 +32,17 @@ const AddMoviePage = () => {
           },
         );
 
-        if (!res.ok) throw new Error("Failed to fetch movies");
+        if (!res.ok) {
+          if (res.status === 404) {
+            // Om eventet är nytt och inga filmer finns
+            return setLoading(false);
+          }
+          throw new Error("Failed to fetch movies");
+        }
 
-        const data: any[] = await res.json(); // Typa som any[] från backend
-        const moviesMapped: Movie[] = data.map((m) => ({
-          _id: m._id, // backend id → frontend _id
+        const data = await res.json();
+        const moviesMapped = data.map((m: any) => ({
+          _id: m._id,
           title: m.Title,
           ageRate: m.AgeRate,
           genre: m.Genre,
@@ -44,11 +51,8 @@ const AddMoviePage = () => {
           runtime: m.Runtime,
         }));
 
-        moviesMapped.forEach((movie) => {
-          dispatch?.({
-            type: "ADD_MOVIE",
-            payload: movie,
-          });
+        moviesMapped.forEach((movie: Movie) => {
+          dispatch?.({ type: "ADD_MOVIE", payload: movie });
         });
       } catch (err: any) {
         console.error(err);
@@ -68,7 +72,7 @@ const AddMoviePage = () => {
       {loading && <p>Loading movies...</p>}
       {fetchError && <p className="text-red-600">{fetchError}</p>}
 
-      <MovieInput />
+      <MovieInput eventId={eventId!} />
 
       {/* Lista redan tillagda filmer */}
       {movies.length > 0 && (
@@ -77,7 +81,7 @@ const AddMoviePage = () => {
           <ul className="space-y-2">
             {movies.map((movie: Movie) => (
               <li
-                key={movie._id} 
+                key={movie._id}
                 className="border p-2 rounded bg-gray-100 flex justify-between items-center"
               >
                 <p className="font-medium">{movie.title}</p>

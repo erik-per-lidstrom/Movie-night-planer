@@ -1,7 +1,7 @@
 import type { Dispatch } from "react";
 
 export type Movie = {
-  _id: string; // backend id
+  _id: string; 
   title: string;
   ageRate: string;
   genre: string;

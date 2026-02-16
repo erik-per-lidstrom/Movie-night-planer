@@ -117,7 +117,6 @@ const HomePage = () => {
       errors.password = "Password must be at least 6 characters";
     }
 
-    
     if (!isLogin) {
       if (!authForm.name) {
         errors.name = "Name is required";
@@ -170,7 +169,6 @@ const HomePage = () => {
         return;
       }
 
-     
       const userToStore = {
         name: data.user.name,
         email: data.user.email,
@@ -188,7 +186,6 @@ const HomePage = () => {
     }
   };
 
- 
   return (
     <div className="home-page p-4 max-w-7xl mx-auto">
       {/* Navbar */}
@@ -201,7 +198,7 @@ const HomePage = () => {
             {currentUser.role === "admin" && (
               <Link
                 to="/add-event"
-                className="bg-green-600 px-3 py-1 rounded text-white"
+                className="bg-white px-3 py-1 rounded text-black border"
               >
                 Add Event
               </Link>
@@ -275,7 +272,7 @@ const HomePage = () => {
               <p>Genre: {event.genre}</p>
               <HiArchiveBoxXMark className="text-red-600 w-6" />
               <Link
-                to={`/event/${event._id}`}
+                to={`/events/${event._id}`}
                 className="inline-block mt-2 bg-blue-500 text-white px-3 py-1 rounded"
               >
                 View Details
