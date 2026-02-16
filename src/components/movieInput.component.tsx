@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import MovieContext from "../context/movie.context";
-import type { movieDraft } from "../types";
+import type { movieDraft } from "../types/movie.types";
 
 const MovieInput = () => {
   const { dispatch } = useContext(MovieContext) || {
@@ -34,7 +34,7 @@ const MovieInput = () => {
       type: "ADD_MOVIE",
       payload: {
         ...movie,
-        id: "",
+        _id: "",
         ageRate: movie.ageRate.trim(),
         title: movie.title.trim(),
         genre: movie.genre.trim(),

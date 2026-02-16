@@ -1,25 +1,51 @@
-import { useContext, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import MovieContext from "../context/movie.context";
+import type { Movie } from "../types/movie.types";
 
 const MoviePage = () => {
-  const { state } = useContext(MovieContext) || {
-    state: [],
-    dispatch: null,
-  };
-  const { movieId } = useParams();
+  const { movieId } = useParams<{ movieId: string }>();
+
+  const [movie, setMovie] = useState<Movie | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = `${movie?.title || "Unknown Movie"} Movie Details Page`;
-  }, []);
+    const fetchMovie = async () => {
+      try {
+        const res = await fetch(`http://localhost:4000/api/movies/${movieId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
-  const movie = state.find((movie) => movie.id === movieId);
+        if (!res.ok) {
+          throw new Error("Failed to fetch movie");
+        }
+
+        const data = await res.json();
+        setMovie(data);
+        document.title = `${data.title} | Movie Details`;
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMovie();
+  }, [movieId]);
+
+  if (loading) return <p>Loading movie...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!movie) return <p>Movie not found</p>;
 
   return (
-    <div className="movie-page p-4">
-      <h1>Movie Details Page </h1>
-      <div className="flex flex-col lg:flex-row p-4 gap-4 items-center md:items-start">
-        {movie?.imgUrl !== "" && movie?.imgUrl ? (
+    <div className="movie-page p-4 max-w-5xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">{movie.title}</h1>
+
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Image */}
+        {movie.imgUrl ? (
           <img
             src={movie.imgUrl}
             alt={movie.title}
@@ -30,40 +56,36 @@ const MoviePage = () => {
             <span className="text-gray-600">No Image Available</span>
           </div>
         )}
-        {movie ? (
-          <div className="movie-details flex flex-col ">
-            <h2>{movie.title}</h2>
 
-            {movie.thilleriframeUrl && (
-              <iframe
-                src={movie.thilleriframeUrl}
-                title={`${movie.title} Trailer`}
-                className="w-full h-64 md:h-96 rounded"
-                allowFullScreen
-                loading="lazy"
-              ></iframe>
-            )}
+        {/* Details */}
+        <div className="flex flex-col gap-3">
+          {movie.thilleriframeUrl && (
+            <iframe
+              src={movie.thilleriframeUrl}
+              title={`${movie.title} Trailer`}
+              className="w-full h-64 md:h-96 rounded"
+              allowFullScreen
+              loading="lazy"
+            />
+          )}
 
-            <p id="ageRate-movies">
-              <h4>Age Rate:</h4> {movie.ageRate}
+          <p>
+            <strong>Age Rate:</strong> {movie.ageRate}
+          </p>
+          <p>
+            <strong>Genre:</strong> {movie.genre}
+          </p>
+          {movie.runtime && (
+            <p>
+              <strong>Runtime:</strong> {movie.runtime}
             </p>
-
-            <p id="genre-movies">
-              <h4>Genre:</h4> {movie.genre}
-            </p>
-
-            <p id="runtime-movies">
-              <h4>Runtime:</h4>
-              {movie.runtime}
-            </p>
-
-            <p id="description-movies">
-              <h4>Description:</h4> <br /> {movie.description}
-            </p>
-          </div>
-        ) : (
-          <p>Movie not found</p>
-        )}
+          )}
+          <p>
+            <strong>Description:</strong>
+            <br />
+            {movie.description}
+          </p>
+        </div>
       </div>
     </div>
   );

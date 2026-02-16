@@ -1,18 +1,17 @@
 import type { Dispatch } from "react";
 
 export type Movie = {
-  id: string;
-  ageRate: string;
+  _id: string; // backend id
   title: string;
+  ageRate: string;
   genre: string;
   description: string;
-
   imgUrl?: string;
   runtime?: string | number;
   thilleriframeUrl?: string;
 };
 
-export type movieDraft = Omit<Movie, "id">;
+export type movieDraft = Omit<Movie, "_id">;
 
 export type MovieState = Movie[];
 

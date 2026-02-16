@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { MovieState, MovieContextType } from "../types";
+import type { MovieState, MovieContextType } from "../types/movie.types";
 
 const initialMovies: MovieState = [];
 

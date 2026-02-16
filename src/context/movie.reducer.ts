@@ -1,4 +1,4 @@
-import type { Action, Movie, MovieState } from "../types";
+import type { Action, Movie, MovieState } from "../types/movie.types";
 
 export const movieReducer = (state: MovieState, action: Action): MovieState => {
   switch (action.type) {
