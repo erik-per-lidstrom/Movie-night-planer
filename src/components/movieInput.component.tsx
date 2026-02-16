@@ -31,7 +31,7 @@ const EventDetailsPage = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!eventId) return; // kolla att vi har eventId
+    if (!eventId) return; 
     const token = localStorage.getItem("token");
     if (!token) return;
 

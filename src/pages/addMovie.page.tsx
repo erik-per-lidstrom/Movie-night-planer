@@ -46,7 +46,10 @@ const AddMoviePage = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ ...movie, EventId: eventId }),
+        body: JSON.stringify({
+          ...movie,
+          EventId: eventId,
+        }),
       });
 
       const data = await res.json();
@@ -57,7 +60,6 @@ const AddMoviePage = () => {
         return;
       }
 
-      // Navigera tillbaka till eventdetails
       navigate(`/events/${eventId}`);
     } catch (err) {
       console.error(err);
