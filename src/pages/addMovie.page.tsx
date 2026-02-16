@@ -1,96 +1,129 @@
-import { useParams } from "react-router-dom";
-import MovieInput from "@/components/movieInput.component";
-import { useContext, useEffect, useState } from "react";
-import MovieContext from "../context/movie.context";
-import type { Movie } from "../types/movie.types";
+// [NY] AddMoviePage.tsx
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AddMoviePage = () => {
   const { eventId } = useParams<{ eventId: string }>();
-  const { state: movies, dispatch } = useContext(MovieContext) || {
-    state: [],
-    dispatch: null,
+  const navigate = useNavigate();
+
+  const [movie, setMovie] = useState({
+    Title: "",
+    AgeRate: "",
+    Genre: "",
+    Description: "",
+    ImageURL: "",
+    Runtime: "",
+  });
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  if (!eventId) return <p>Invalid event</p>;
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setMovie({ ...movie, [e.target.name]: e.target.value });
   };
 
-  const [loading, setLoading] = useState(false);
-  const [fetchError, setFetchError] = useState("");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
 
-  // Hämta redan skapade filmer för detta event
-  useEffect(() => {
-    if (!eventId) return; // visa ett meddelande om event saknas
+    const token = localStorage.getItem("token");
+    if (!token) return setError("You must be logged in");
 
-    const fetchMovies = async () => {
-      setLoading(true);
-      setFetchError("");
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) throw new Error("You must be logged in");
+    if (!movie.Title || !movie.AgeRate || !movie.Genre || !movie.Runtime) {
+      return setError("Title, AgeRate, Genre, and Runtime are required");
+    }
 
-        const res = await fetch(
-          `http://localhost:4000/api/movies/event/${eventId}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
+    setLoading(true);
 
-        if (!res.ok) {
-          if (res.status === 404) {
-            // Om eventet är nytt och inga filmer finns
-            return setLoading(false);
-          }
-          throw new Error("Failed to fetch movies");
-        }
+    try {
+      const res = await fetch(`http://localhost:4000/api/movies/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ ...movie, EventId: eventId }),
+      });
 
-        const data = await res.json();
-        const moviesMapped = data.map((m: any) => ({
-          _id: m._id,
-          title: m.Title,
-          ageRate: m.AgeRate,
-          genre: m.Genre,
-          description: m.Description,
-          imgUrl: m.ImageURL,
-          runtime: m.Runtime,
-        }));
+      const data = await res.json();
 
-        moviesMapped.forEach((movie: Movie) => {
-          dispatch?.({ type: "ADD_MOVIE", payload: movie });
-        });
-      } catch (err: any) {
-        console.error(err);
-        setFetchError(err.message || "Could not load movies");
-      } finally {
+      if (!res.ok) {
+        setError(data.message || "Failed to create movie");
         setLoading(false);
+        return;
       }
-    };
 
-    fetchMovies();
-  }, [eventId, dispatch]);
+      // Navigera tillbaka till eventdetails
+      navigate(`/events/${eventId}`);
+    } catch (err) {
+      console.error(err);
+      setError("Server error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="p-4 max-w-4xl mx-auto">
+    <div className="p-4 max-w-2xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Add Movie</h2>
+      {error && <p className="text-red-600 mb-2">{error}</p>}
 
-      {loading && <p>Loading movies...</p>}
-      {fetchError && <p className="text-red-600">{fetchError}</p>}
+      <form className="grid gap-4" onSubmit={handleSubmit}>
+        <input
+          name="Title"
+          placeholder="Title"
+          value={movie.Title}
+          onChange={handleChange}
+          className="border p-2 rounded"
+        />
+        <input
+          name="AgeRate"
+          placeholder="Age Rate"
+          value={movie.AgeRate}
+          onChange={handleChange}
+          className="border p-2 rounded"
+        />
+        <input
+          name="Genre"
+          placeholder="Genre"
+          value={movie.Genre}
+          onChange={handleChange}
+          className="border p-2 rounded"
+        />
+        <textarea
+          name="Description"
+          placeholder="Description"
+          value={movie.Description}
+          onChange={handleChange}
+          className="border p-2 rounded"
+        />
+        <input
+          name="ImageURL"
+          placeholder="Image URL"
+          value={movie.ImageURL}
+          onChange={handleChange}
+          className="border p-2 rounded"
+        />
+        <input
+          name="Runtime"
+          placeholder="Runtime"
+          value={movie.Runtime}
+          onChange={handleChange}
+          className="border p-2 rounded"
+        />
 
-      <MovieInput eventId={eventId!} />
-
-      {/* Lista redan tillagda filmer */}
-      {movies.length > 0 && (
-        <div className="mt-6">
-          <h3 className="text-xl font-semibold mb-2">Current Movies</h3>
-          <ul className="space-y-2">
-            {movies.map((movie: Movie) => (
-              <li
-                key={movie._id}
-                className="border p-2 rounded bg-gray-100 flex justify-between items-center"
-              >
-                <p className="font-medium">{movie.title}</p>
-                <p className="text-sm">Age: {movie.ageRate}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-green-500 text-white px-4 py-2 rounded"
+        >
+          {loading ? "Creating..." : "Add Movie"}
+        </button>
+      </form>
     </div>
   );
 };

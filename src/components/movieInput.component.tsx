@@ -1,160 +1,149 @@
-import { useContext, useState } from "react";
-import type { ChangeEvent, FormEvent } from "react";
-import MovieContext from "../context/movie.context";
-import type { movieDraft } from "../types/movie.types";
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 
-interface MovieInputProps {
-  eventId: string;
+interface Event {
+  _id: string;
+  name: string;
+  date: string;
+  location: string;
+  agerate: string;
+  genre: string;
+  description: string;
 }
 
-const MovieInput = ({ eventId }: MovieInputProps) => {
-  const { dispatch } = useContext(MovieContext) || { dispatch: null };
+interface Movie {
+  _id: string;
+  title: string;
+  description: string;
+  ageRate: string;
+  genre: string;
+  imgUrl: string;
+  runtime: string;
+}
 
-  const [movie, setMovie] = useState<movieDraft>({
-    title: "",
-    description: "",
-    ageRate: "",
-    genre: "",
-    imgUrl: "",
-    runtime: "",
-  });
+const EventDetailsPage = () => {
+  const { eventId } = useParams(); // kommer från route
+  const currentUser = JSON.parse(localStorage.getItem("user") || "null");
 
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = event.target;
-    setMovie((prev) => ({ ...prev, [name]: value }));
-  };
+  const [event, setEvent] = useState<Event | null>(null);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!movie.title.trim()) return alert("Title is required");
-    if (!eventId) return alert("Event ID missing");
-
+  useEffect(() => {
+    if (!eventId) return; // kolla att vi har eventId
     const token = localStorage.getItem("token");
-    if (!token) return alert("You must be logged in");
+    if (!token) return;
 
-    try {
-      const res = await fetch(
-        `http://localhost:4000/api/movies/event/${eventId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(movie),
-        },
-      );
+    const fetchEventAndMovies = async () => {
+      setLoading(true);
+      setError("");
 
-      if (!res.ok) {
-        const data = await res.json();
-        return alert(data.message || "Failed to create movie");
+      try {
+        // Fetch event
+        const eventRes = await fetch(
+          `http://localhost:4000/api/events/${eventId}`,
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+
+        if (!eventRes.ok) throw new Error("Failed to fetch event");
+        const eventData = await eventRes.json();
+        setEvent(eventData);
+
+        // Fetch movies
+        const movieRes = await fetch(
+          `http://localhost:4000/api/movies/event/${eventId}`,
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+
+        if (!movieRes.ok) {
+          if (movieRes.status === 404) {
+            setMovies([]); // inga filmer än
+          } else {
+            throw new Error("Failed to fetch movies");
+          }
+        } else {
+          const movieData = await movieRes.json();
+          const mappedMovies = movieData.map((m: any) => ({
+            _id: m._id,
+            title: m.Title,
+            description: m.Description,
+            ageRate: m.AgeRate,
+            genre: m.Genre,
+            imgUrl: m.ImageURL,
+            runtime: m.Runtime,
+          }));
+          setMovies(mappedMovies);
+        }
+      } catch (err) {
+        console.error(err);
+        const errorMessage = err instanceof Error ? err.message : "Something went wrong";
+        setError(errorMessage);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      const savedMovie = await res.json();
-
-      // Lägg till filmen i context om dispatch finns
-      dispatch?.({ type: "ADD_MOVIE", payload: savedMovie });
-
-      // Reset form
-      setMovie({
-        title: "",
-        description: "",
-        ageRate: "",
-        genre: "",
-        imgUrl: "",
-        runtime: "",
-      });
-
-      alert(`${savedMovie.Title || "Movie"} added successfully!`);
-    } catch (err) {
-      console.error(err);
-      alert("Error creating movie");
-    }
-  };
+    fetchEventAndMovies();
+  }, [eventId]);
 
   return (
-    <form className="grid gap-4 mb-4" onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Title:</label>
-        <input
-          className="border rounded bg-accent w-full p-2"
-          type="text"
-          name="title"
-          value={movie.title}
-          onChange={handleChange}
-          placeholder="Movie Title"
-        />
-      </div>
+    <div className="p-4 max-w-5xl mx-auto">
+      {loading && <p>Loading event...</p>}
+      {error && <p className="text-red-600">{error}</p>}
+      {event && (
+        <div>
+          <h1 className="text-2xl font-bold mb-2">{event.name}</h1>
+          <p>Date: {event.date}</p>
+          <p>Location: {event.location}</p>
+          <p>Age: {event.agerate}</p>
+          <p>Genre: {event.genre}</p>
+          <p>Description: {event.description}</p>
 
-      <div>
-        <label htmlFor="ageRate">Age Rate:</label>
-        <input
-          className="border rounded bg-accent w-full p-2"
-          type="text"
-          name="ageRate"
-          value={movie.ageRate}
-          onChange={handleChange}
-          placeholder="Age Rate"
-        />
-      </div>
+          {currentUser?.role === "admin" && (
+            <Link to={`/events/${event._id}/add-movie`}>
+              <button className="bg-white text-black px-4 py-2 rounded mt-4 border hover:bg-gray-200">
+                Add Movie
+              </button>
+            </Link>
+          )}
 
-      <div>
-        <label htmlFor="genre">Genre:</label>
-        <input
-          className="border rounded bg-accent w-full p-2"
-          type="text"
-          name="genre"
-          value={movie.genre}
-          onChange={handleChange}
-          placeholder="Genre"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="description">Description:</label>
-        <textarea
-          className="border rounded bg-accent w-full p-2"
-          name="description"
-          value={movie.description}
-          onChange={handleChange}
-          placeholder="Description"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="imgUrl">Image URL:</label>
-        <input
-          className="border rounded bg-accent w-full p-2"
-          type="text"
-          name="imgUrl"
-          value={movie.imgUrl}
-          onChange={handleChange}
-          placeholder="Image URL"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="runtime">Runtime:</label>
-        <input
-          className="border rounded bg-accent w-full p-2"
-          type="text"
-          name="runtime"
-          value={movie.runtime}
-          onChange={handleChange}
-          placeholder="Runtime"
-        />
-      </div>
-
-      <button
-        type="submit"
-        className="bg-green-500 text-white px-4 py-2 rounded"
-      >
-        Add Movie
-      </button>
-    </form>
+          <h2 className="text-xl mt-4 mb-2">Movies</h2>
+          {movies.length === 0 ? (
+            <p>No movies for this event yet.</p>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-4">
+              {movies.map((movie) => (
+                <div
+                  key={movie._id}
+                  className="border p-3 rounded flex flex-col"
+                >
+                  <h3 className="font-semibold">{movie.title}</h3>
+                  <p className="text-sm">Genre: {movie.genre}</p>
+                  <p className="text-sm">Age: {movie.ageRate}</p>
+                  <p className="text-sm">{movie.description}</p>
+                  {movie.imgUrl && (
+                    <img
+                      src={movie.imgUrl}
+                      alt={movie.title}
+                      className="mt-2 w-full h-40 object-cover rounded"
+                    />
+                  )}
+                  <p className="text-sm mt-1">Runtime: {movie.runtime}</p>
+                  <Link
+                    to={`/movie/${movie._id}`}
+                    className="mt-2 inline-block bg-blue-500 text-white px-3 py-1 rounded text-center"
+                  >
+                    View Movie Details
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 
-export default MovieInput;
+export default EventDetailsPage;

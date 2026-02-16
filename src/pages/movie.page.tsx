@@ -8,11 +8,11 @@ const MoviePage = () => {
   const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const { eventId } = useParams();
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/movies/${movieId}`, {
+        const res = await fetch(`http://localhost:4000/api/movies/${eventId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
