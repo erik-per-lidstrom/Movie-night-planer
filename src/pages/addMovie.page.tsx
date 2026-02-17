@@ -13,6 +13,7 @@ const AddMoviePage = () => {
     Description: "",
     ImageURL: "",
     Runtime: "",
+    thilleriframeUrl: "",
   });
 
   const [error, setError] = useState("");
@@ -71,6 +72,47 @@ const AddMoviePage = () => {
 
   return (
     <div className="p-4 max-w-2xl mx-auto">
+      <p>
+        <strong>Note:</strong>
+        <br />
+        You can only use <strong>trailer videos from YouTube</strong> by copying
+        the
+        <strong>video URL</strong> (
+        <em>double‑click on the video to copy the video address</em>).
+        <br />
+        <br />
+        Follow these steps:
+        <ol>
+          <li>Double‑click on the YouTube video to copy the video address.</li>
+          <li>
+            Go to
+            <a
+              href="https://iframely.com/try"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://iframely.com/try
+            </a>
+          </li>
+          <li>Paste the link into the input field.</li>
+          <li>
+            Copy <strong>only the iframe URL</strong> from the generated result.
+          </li>
+        </ol>
+      </p>
+      <br />
+      <p>
+        <strong>⚠️ WARNING ⚠️</strong>
+        <br />
+        <strong>
+          Please generate the iframe URL first, then fill in the remaining movie
+          information.
+          <br />
+          If you reload the page or navigate to another page on the website, all
+          the information you have entered in the form will be lost.
+        </strong>
+      </p>
+      <br />
       <h2 className="text-2xl font-bold mb-4">Add Movie</h2>
       {error && <p className="text-red-600 mb-2">{error}</p>}
 
@@ -118,10 +160,20 @@ const AddMoviePage = () => {
           className="border p-2 rounded"
         />
 
+        <br />
+
+        <input
+          name="thilleriframeUrl"
+          placeholder="Thriller URL"
+          value={movie.thilleriframeUrl}
+          onChange={handleChange}
+          className="border p-2 rounded"
+        />
+
         <button
           type="submit"
           disabled={loading}
-          className="bg-white text-black px-4 py-2 rounded"
+          className="bg-white text-black px-4 py-2 rounded "
         >
           {loading ? "Creating..." : "Add Movie"}
         </button>

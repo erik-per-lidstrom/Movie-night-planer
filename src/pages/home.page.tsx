@@ -6,7 +6,6 @@ import { HiArchiveBoxXMark } from "react-icons/hi2";
 import bgLogin from "../assets/Loginpagebg2.0.jpg";
 
 const HomePage = () => {
-  // ---------------- Event state ----------------
   const [events, setEvents] = useState<Event[]>([]);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [loadingEvents, setLoadingEvents] = useState(false);
@@ -58,11 +57,14 @@ const HomePage = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        if (!res.ok) throw new Error("Failed to fetch events");
+        if (!res.ok)
+          throw new Error(
+            "Failed to fetch events, try again later or events coming soon!",
+          );
 
         const data = await res.json();
         console.log("EVENTS:", data.data);
-        setEvents(data.data); // viktigt: backend returnerar ofta { data: [...] }
+        setEvents(data.data);
       } catch (err: any) {
         console.error(err);
         setFetchError(err.message || "Failed to load events. Come back later.");

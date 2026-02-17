@@ -35,6 +35,7 @@ const MoviePage = () => {
           genre: data.Genre,
           imgUrl: data.ImageURL,
           runtime: data.Runtime,
+          thilleriframeUrl: data.ThrillerUrl,
         });
 
         document.title = `${data.Title} | Movie Details`;
@@ -84,6 +85,21 @@ const MoviePage = () => {
             <br />
             {movie.description}
           </p>
+
+          {movie.thilleriframeUrl && (
+            <p>
+              <strong>Thriller</strong>
+              <br />
+              <a
+                href={movie.thilleriframeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:underline"
+              >
+                Watch Trailer
+              </a>
+            </p>
+          )}
         </div>
       </div>
     </div>
