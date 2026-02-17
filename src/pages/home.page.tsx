@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import type { Event } from "../types/event.types";
 import ScrollToTop from "../components/scrollToTop.component";
 import { HiArchiveBoxXMark } from "react-icons/hi2";
+import bgLogin from "../assets/Loginpagebg2.0.jpg";
 
 const HomePage = () => {
   // ---------------- Event state ----------------
@@ -44,7 +45,10 @@ const HomePage = () => {
   // Fetch events //
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) return;
+    if (!token) {
+      setFetchError("Not logged in");
+      return;
+    }
 
     const fetchEvents = async () => {
       setLoadingEvents(true);
@@ -54,20 +58,21 @@ const HomePage = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        if (!res.ok) throw new Error("Unauthorized or server error");
+        if (!res.ok) throw new Error("Failed to fetch events");
 
         const data = await res.json();
-        setEvents(data.data || []);
-      } catch (err) {
+        console.log("EVENTS:", data.data);
+        setEvents(data.data); // viktigt: backend returnerar ofta { data: [...] }
+      } catch (err: any) {
         console.error(err);
-        setFetchError("Failed to load events. Come back later.");
+        setFetchError(err.message || "Failed to load events. Come back later.");
       } finally {
         setLoadingEvents(false);
       }
     };
 
     fetchEvents();
-  }, [currentUser]);
+  }, []);
 
   //  Logout //
   const handleLogout = () => {
@@ -283,14 +288,49 @@ const HomePage = () => {
       )}
 
       {/* Auth Popup */}
-      {/* Auth Popup */}
       {showAuthPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded w-full max-w-md relative">
+        /* Hela sidan – bakgrundsbild + cinema overlay */
+        <div
+          className="fixed inset-0 flex justify-center items-center z-50 transition-opacity duration-300"
+          style={{
+            backgroundImage: `
+            radial-gradient(circle at center, rgba(0,0,0,0.4), rgba(0,0,0,0.85)),
+            url(${bgLogin})
+      `,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          {/* Popup – glassmorphism */}
+          <div
+            className="
+        relative
+    w-full max-w-md
+    p-6
+    rounded-2xl
+    bg-white/80
+    backdrop-blur-xl
+    border border-white/30
+
+    /* CINEMATIC GLOW */
+    shadow-[0_0_60px_rgba(255,200,120,0.35)]
+    before:absolute
+    before:inset-0
+    before:-z-10
+    before:rounded-2xl
+    before:bg-linear-to-br
+    before:from-amber-400/30
+    before:via-pink-500/20
+    before:to-purple-600/30
+    before:blur-3xl
+
+    animate-fadeIn
+      "
+          >
             {/* Stäng-knapp */}
             <button
               onClick={() => setShowAuthPopup(false)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl font-bold"
+              className="absolute top-2 right-2 text-gray-600 hover:text-black text-xl font-bold"
             >
               &times;
             </button>

@@ -46,16 +46,16 @@ const EventDetailsPage = () => {
           else throw new Error("Failed to fetch movies");
         } else {
           const movieData = await movieRes.json();
-          const mapped: Movie[] = movieData.map((m: any) => ({
+          const mappedMovies = movieData.map((m: any) => ({
             _id: m._id,
-            Title: m.Title,
-            AgeRate: m.AgeRate,
-            Genre: m.Genre,
-            Description: m.Description,
-            ImageURL: m.ImageURL,
-            Runtime: m.Runtime,
+            title: m.Title || "No Title",
+            ageRate: m.AgeRate || "N/A",
+            genre: m.Genre || "N/A",
+            description: m.Description || "",
+            imgUrl: m.ImageURL || "",
+            runtime: m.Runtime || "",
           }));
-          setMovies(mapped);
+          setMovies(mappedMovies);
         }
       } catch (err: any) {
         console.error(err);

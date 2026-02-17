@@ -8,11 +8,13 @@ const MoviePage = () => {
   const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { eventId } = useParams();
+
   useEffect(() => {
+    if (!movieId) return;
+
     const fetchMovie = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/movies/${eventId}`, {
+        const res = await fetch(`http://localhost:4000/api/movies/${movieId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -23,8 +25,19 @@ const MoviePage = () => {
         }
 
         const data = await res.json();
-        setMovie(data);
-        document.title = `${data.title} | Movie Details`;
+
+        // Mappa backend → frontend
+        setMovie({
+          _id: data._id,
+          title: data.Title,
+          description: data.Description,
+          ageRate: data.AgeRate,
+          genre: data.Genre,
+          imgUrl: data.ImageURL,
+          runtime: data.Runtime,
+        });
+
+        document.title = `${data.Title} | Movie Details`;
       } catch (err) {
         setError((err as Error).message);
       } finally {
@@ -44,7 +57,6 @@ const MoviePage = () => {
       <h1 className="text-2xl font-bold mb-4">{movie.title}</h1>
 
       <div className="flex flex-col lg:flex-row gap-6">
-        {/* Image */}
         {movie.imgUrl ? (
           <img
             src={movie.imgUrl}
@@ -57,29 +69,16 @@ const MoviePage = () => {
           </div>
         )}
 
-        {/* Details */}
         <div className="flex flex-col gap-3">
-          {movie.thilleriframeUrl && (
-            <iframe
-              src={movie.thilleriframeUrl}
-              title={`${movie.title} Trailer`}
-              className="w-full h-64 md:h-96 rounded"
-              allowFullScreen
-              loading="lazy"
-            />
-          )}
-
           <p>
             <strong>Age Rate:</strong> {movie.ageRate}
           </p>
           <p>
             <strong>Genre:</strong> {movie.genre}
           </p>
-          {movie.runtime && (
-            <p>
-              <strong>Runtime:</strong> {movie.runtime}
-            </p>
-          )}
+          <p>
+            <strong>Runtime:</strong> {movie.runtime}
+          </p>
           <p>
             <strong>Description:</strong>
             <br />

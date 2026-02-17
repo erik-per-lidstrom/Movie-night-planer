@@ -49,9 +49,8 @@ const AddEventPage = () => {
       if (!res.ok) {
         setError(data.message || "Failed to create event");
       } else {
-        
         alert("Event created successfully!");
-        navigate("/"); 
+        navigate("/");
       }
     } catch (err: any) {
       console.error(err);
