@@ -139,7 +139,6 @@ const HomePage = () => {
       return;
     }
 
-    //  SEND REQUEST TO BACKEND //
     try {
       const url = isLogin
         ? "http://localhost:4000/api/users/login"
